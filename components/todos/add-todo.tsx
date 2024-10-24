@@ -6,6 +6,7 @@ import { useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { addTodo } from "@/actions/todos/actions";
+import { FaPlus } from "react-icons/fa6";
 
 export default function AddTodo() {
     const ref = useRef<HTMLFormElement>(null);
@@ -20,7 +21,7 @@ export default function AddTodo() {
             }}
         >
             <Button className="min-w-5 h-5 p-0 rounded-sm">
-                <PlusIcon className="w-4 h-4" />
+                <FaPlus className="w-4 h-4" />
             </Button>
             <Input
                 id="task"
@@ -33,7 +34,7 @@ export default function AddTodo() {
     );
 }
 
-function PlusIcon(props: any) {
+/*function PlusIcon(props: any) {
     return (
         <svg
             {...props}
@@ -51,4 +52,4 @@ function PlusIcon(props: any) {
             <path d="M12 5v14" />
         </svg>
     );
-}
+}*/

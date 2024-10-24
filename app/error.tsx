@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { GoAlertFill } from "react-icons/go";
 
 export default function Error({
                                   error,
@@ -14,7 +15,7 @@ export default function Error({
         <main className="min-h-screen bg-gray-100 dark:bg-gray-800 flex items-center justify-center px-4 sm:px-6 lg:px-8">
             <div className="max-w-md w-full space-y-8 text-center">
                 <div>
-                    <AlertCircleIcon className="mx-auto h-12 w-auto text-red-500" />
+                    <GoAlertFill  className="mx-auto h-12 w-auto text-red-500" />
                     <h2 className="mt-6 text-3xl font-extrabold text-gray-900 dark:text-gray-100">
                         Oops! Something went wrong.
                     </h2>
@@ -41,7 +42,7 @@ export default function Error({
     );
 }
 
-function AlertCircleIcon(props: any) {
+/*function AlertCircleIcon(props: any) {
     return (
         <svg
             {...props}
@@ -60,4 +61,4 @@ function AlertCircleIcon(props: any) {
             <line x1="12" x2="12.01" y1="16" y2="16" />
         </svg>
     );
-}
+}*/
