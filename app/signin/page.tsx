@@ -2,7 +2,6 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createClient } from "@/utils/supabase/server";
 import { signin } from "@/actions/auth/actions";
-
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -23,7 +22,7 @@ export default async function SignInPage() {
     }
 
     return (
-        <main className="flex min-h-screen flex-col items-center justify-center">
+        <main className='flex min-h-screen flex-col items-center justify-center bg-hero-image'>
             <Card className="w-full max-w-md">
                 <CardHeader>
                     <div className="flex flex-col items-center space-y-2">

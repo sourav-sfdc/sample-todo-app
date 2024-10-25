@@ -7,7 +7,7 @@ import { Separator } from "@/components/ui/separator";
 
 export default function PhoneLoginPage() {
     return (
-        <main className="flex min-h-screen flex-col items-center justify-center">
+        <main className="flex min-h-screen flex-col items-center justify-center bg-hero-image">
             <Card className="w-full max-w-md">
                 <CardHeader>
                     <div className="flex flex-col items-center space-y-2">
@@ -24,7 +24,7 @@ export default function PhoneLoginPage() {
                             <Input
                                 id="phone"
                                 name="phone"
-                                placeholder="+1 (555) 123-4567"
+                                placeholder="+91 (123) 456-7890"
                                 required
                                 type="tel"
                             />
