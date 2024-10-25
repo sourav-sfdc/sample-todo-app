@@ -39,7 +39,7 @@ export default function PhoneLoginPage() {
                     </CardContent>
                     <CardFooter className="flex flex-col space-y-2">
                         <Link className="text-sm underline" href="/signup">
-                            Don&apos;t have an account? Sign up here
+                            Signup with email. Sign up here
                         </Link>
                     </CardFooter>
                 </Card>
