@@ -6,6 +6,10 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
+import { FaPhone } from "react-icons/fa6";
+import { MdEmail } from "react-icons/md";
+
+
 import {
     CardHeader,
     CardContent,
@@ -57,11 +61,13 @@ export default async function SignInPage() {
                         <div className="space-y-4">
                             <Link href="/phone-login">
                                 <Button className="w-full" variant="outline">
+                                <FaPhone className="w-4 h-4" />
                                     Sign in with Phone Number
                                 </Button>
                             </Link>
                             <Separator/>
                             <Button className="w-full" variant="outline">
+                            <MdEmail className="w-4 h-4" />
                                 Sign in with Google
                             </Button>
                         </div>
