@@ -1,5 +1,3 @@
-// app/signin/page.tsx
-
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createClient } from "@/utils/supabase/server";
@@ -55,6 +53,12 @@ export default async function SignInPage() {
                     </form>
                     <Separator />
                     <div className="space-y-4">
+                        <Link href="/phone-login">
+                            <Button className="w-full" variant="outline">
+                                Sign in with Phone Number
+                            </Button>
+                        </Link>
+                        <Separator />
                         <Button className="w-full" variant="outline">
                             Sign in with Google
                         </Button>
