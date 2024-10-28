@@ -1,5 +1,6 @@
-export default function NavBarA() {
+
+export default function SideBarA() {
     return (
-        <>Hello World A</>
-    );
+        <>Hwllo World A</>
+    )
 }
