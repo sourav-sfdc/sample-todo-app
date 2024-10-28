@@ -1,49 +1,51 @@
-import Link from "next/link";
+"use client"
+import React, { useState } from 'react';
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { CardHeader, CardContent, CardFooter, Card } from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
-import BackgroundImage from "@/components/custom/background-image";
+import { verifyOtp, sendOtp } from '@/actions/auth/actions';
 
-export default function PhoneLoginPage() {
-    return (
-        <div className="relative h-screen w-screen overflow-hidden">
-            <BackgroundImage/>
-            <main className="relative z-10 flex min-h-screen flex-col items-center justify-center">
-                <Card className="w-full max-w-md">
-                    <CardHeader>
-                        <div className="flex flex-col items-center space-y-2">
-                            <h1 className="text-3xl font-bold">Sign in with Phone Number</h1>
-                            <p className="text-gray-500 dark:text-gray-400">
-                                Enter your phone number to get an OTP
-                            </p>
-                        </div>
-                    </CardHeader>
-                    <CardContent className="space-y-6">
-                        <form className="space-y-6">
-                            <div className="space-y-2">
-                                <Label htmlFor="phone">Phone Number</Label>
-                                <Input
-                                    id="phone"
-                                    name="phone"
-                                    placeholder="+91 (123) 456-7890"
-                                    required
-                                    type="tel"
-                                />
-                            </div>
-                            {/* Button to Get OTP */}
-                            <Button className="w-full">Get OTP</Button>
-                        </form>
-                        <Separator />
-                    </CardContent>
-                    <CardFooter className="flex flex-col space-y-2">
-                        <Link className="text-sm underline" href="/signup">
-                            Signup with email. Sign up here
-                        </Link>
-                    </CardFooter>
-                </Card>
-            </main>
-        </div>
-    );
-}
+const PhoneLogin = () => {
+  const [buttonClick, setButtonClick] = useState(false);
+  const [phoneNo, setPhoneNo] = useState("");
+  
+  return (
+    <>
+    { !buttonClick && 
+      <div className="flex flex-col items-center justify-center h-screen p-4">
+        <h2 className="text-xl font-bold mb-4">Phone Login</h2>
+          <div className="w-full max-w-xs">
+            <form className="space-y-6">
+              <Label htmlFor="phone" className="block text-sm font-medium text-gray-700">
+                Phone Number
+              </Label>
+              <Input id="phone" name="phone" type="text" onChange={(e) => {setPhoneNo(e.target.value)}} placeholder="Enter Mobile Number" className="mt-1 block w-full"/>               
+              <Button formAction={async (formData) => {sendOtp(formData); setButtonClick(true)}} className="mt-4 w-full">
+                Get OTP
+              </Button>
+            </form>
+          </div>
+      </div>
+    }
+    { buttonClick && 
+      <div className="flex flex-col items-center justify-center h-screen p-4">
+        <h2 className="text-xl font-bold mb-4">Phone Login</h2>
+          <div className="w-full max-w-xs">
+            <form className="space-y-6">
+              <Input type='hidden' name='phone' value={phoneNo}/>
+              <Label htmlFor="otp" className="block text-sm font-medium text-gray-700">
+                OTP
+              </Label>
+              <Input id="otp" name="otp" type="text" placeholder="Enter Otp" className="mt-1 block w-full"/>               
+              <Button formAction={verifyOtp} className="mt-4 w-full">
+                Verify OTP
+              </Button>
+            </form>
+          </div>
+      </div>
+    }
+    </>
+  );
+};
+
+export default PhoneLogin;
