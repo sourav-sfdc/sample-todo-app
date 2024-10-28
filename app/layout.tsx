@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import {Providers} from "./providers";
+import NextNavBar from "@/components/custom/next-navbar";
 
 
 export const metadata: Metadata = {
@@ -13,6 +14,7 @@ export default function RootLayout({children}: { children: React.ReactNode }) {
         <html lang="en" className='dark'>
             <body>
                 <Providers>
+                    <NextNavBar/>
                     {children}
                 </Providers>
             </body>
