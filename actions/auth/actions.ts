@@ -42,6 +42,43 @@ export async function signin(formData: FormData) {
     redirect("/");
 }
 
+export async function sendOtp(formData : FormData) {
+    console.log("Handle SendOtp Invoked");
+    const phoneNo = formData.get("phone") as string;
+    const supabase = await createClient();
+    console.log(phoneNo)
+    const { data, error } = await supabase.auth.signInWithOtp({ phone : phoneNo });
+    console.log(JSON.stringify(data));
+    if (error) {
+        throw new Error(error.message);
+    }
+    //return { success: true };
+}
+
+export async function verifyOtp(formData: FormData) {
+    const otpCode = formData.get("otp") as string;
+    const phoneNo = formData.get("phone") as string;
+    const supabase = await createClient();
+    console.log(otpCode)
+    console.log(phoneNo)
+    const { data, error } = await supabase.auth.verifyOtp(
+        { 
+            token : otpCode,
+            phone : phoneNo,
+            type : 'sms' 
+        }
+    );
+    console.log(JSON.stringify(data));
+    console.log(error)
+    if (error) {
+        throw new Error(error.message);
+    }
+
+    revalidatePath("/", "layout");
+    redirect("/");
+}
+
+
 export async function signout() {
     const supabase = await createClient();
 
