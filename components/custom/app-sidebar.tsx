@@ -1,10 +1,7 @@
 "use client";
 
-import { Calendar, ChevronUp, Home, Inbox, Search, Settings, User2 } from "lucide-react"
-
+import { Calendar, ChevronUp, Home, Inbox, Search, Settings, User2 } from "lucide-react";
 import { signout } from "@/actions/auth/actions";
-
-
 
 import {
   Sidebar,
@@ -16,17 +13,29 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarFooter,
-} from "@/components/ui/sidebar"
+  SidebarMenuSub,
+  SidebarMenuSubItem,
+} from "@/components/ui/sidebar";
 
-import{
+import {
   DropdownMenu,
   DropdownMenuTrigger,
   DropdownMenuContent,
   DropdownMenuItem,
-} from "@/components/ui/dropdown-menu"
+} from "@/components/ui/dropdown-menu";
+
+import { Collapsible, CollapsibleTrigger, CollapsibleContent } from "@/components/ui/collapsible";
+
+// Define the type for a menu item
+type MenuItem = {
+  title: string;
+  url: string;
+  icon: React.ComponentType;
+  subItems?: { title: string; url: string }[]; // Optional subItems array
+};
 
 // Menu items.
-const items = [
+const items: MenuItem[] = [
   {
     title: "Home",
     url: "#",
@@ -36,6 +45,10 @@ const items = [
     title: "Inbox",
     url: "#",
     icon: Inbox,
+    subItems: [
+      { title: "All Inboxes", url: "#inbox-all" },
+      { title: "Important", url: "#inbox-important" },
+    ],
   },
   {
     title: "Calendar",
@@ -51,8 +64,12 @@ const items = [
     title: "Settings",
     url: "#",
     icon: Settings,
+    subItems: [
+      { title: "Profile", url: "#settings-profile" },
+      { title: "Preferences", url: "#settings-preferences" },
+    ],
   },
-]
+];
 
 export function AppSidebar() {
   return (
@@ -63,48 +80,70 @@ export function AppSidebar() {
           <SidebarGroupContent>
             <SidebarMenu>
               {items.map((item) => (
-                <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild>
-                    <a href={item.url}>
-                      <item.icon />
-                      <span>{item.title}</span>
-                    </a>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
+                <Collapsible key={item.title} defaultOpen={!!item.subItems} className="group/collapsible">
+                  <SidebarMenuItem>
+                    <CollapsibleTrigger asChild>
+                      <SidebarMenuButton asChild>
+                        <a href={item.url}>
+                          <item.icon />
+                          <span>{item.title}</span>
+                        </a>
+                      </SidebarMenuButton>
+                    </CollapsibleTrigger>
+                    {item.subItems && (
+                      <CollapsibleContent>
+                        <SidebarMenuSub>
+                          {item.subItems.map((subItem) => (
+                            <SidebarMenuSubItem key={subItem.title}>
+                              <a href={subItem.url}>
+                                <span>{subItem.title}</span>
+                              </a>
+                            </SidebarMenuSubItem>
+                          ))}
+                        </SidebarMenuSub>
+                      </CollapsibleContent>
+                    )}
+                  </SidebarMenuItem>
+                </Collapsible>
               ))}
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
+
+      {/* Sidebar Footer with User Dropdown */}
       <SidebarFooter>
-          <SidebarMenu>
-            <SidebarMenuItem>
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <SidebarMenuButton>
-                    <User2 />Username
-                    <ChevronUp className="ml-auto" />
-                  </SidebarMenuButton>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent
-                  side="top"
-                  className="w-[--radix-popper-anchor-width]"
-                >
-                  <DropdownMenuItem>
-                    <button>Account</button>
-                  </DropdownMenuItem>
-                  
-                  <DropdownMenuItem>
-                    <button
-                    onClick={async() =>{
+        <SidebarMenu>
+          <SidebarMenuItem>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <SidebarMenuButton>
+                  <User2 /> Username
+                  <ChevronUp className="ml-auto" />
+                </SidebarMenuButton>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent
+                side="top"
+                className="w-[--radix-popper-anchor-width]"
+              >
+                <DropdownMenuItem>
+                  <button>Account</button>
+                </DropdownMenuItem>
+                
+                <DropdownMenuItem>
+                  <button
+                    onClick={async () => {
                       await signout();
-                    }}>Sign Out</button>
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
-            </SidebarMenuItem>
-          </SidebarMenu>
-        </SidebarFooter>
+                    }}
+                  >
+                    Sign Out
+                  </button>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </SidebarMenuItem>
+        </SidebarMenu>
+      </SidebarFooter>
     </Sidebar>
-  )
+  );
 }
