@@ -22,7 +22,7 @@ export default async function Home() {
             <div className="flex flex-col max-w-2xl border rounded-lg shadow-lg p-4">
                 <div className="flex items-center gap-4 pb-4">
                     <LuListTodo className="h-8 w-8 text-gray-500 dark:text-gray-400" />
-                    <h1 className="font-semibold text-2xl">Todos for Me</h1>
+                    <h1 className="font-semibold text-2xl">Todos</h1>
                 </div>
                 <Todos />
                 <ClearActions />
