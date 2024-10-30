@@ -4,9 +4,10 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/utils/supabase/server";
 import { LuListTodo } from "react-icons/lu";
 
+
+
 import Todos from "@/components/todos/todos";
 import ClearActions from "@/components/todos/clear-actions";
-import SignOutButton from "@/components/auth/signout-button";
 
 export default async function Home() {
     const supabase = await createClient();
@@ -27,10 +28,10 @@ export default async function Home() {
                 <Todos />
                 <ClearActions />
             </div>
-            <SignOutButton />
         </main>
     );
-}
+} 
+ 
 
 /*function CheckCircleIcon(props: any) {
     return (

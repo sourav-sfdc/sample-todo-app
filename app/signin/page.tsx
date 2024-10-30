@@ -25,8 +25,7 @@ export default async function SignInPage() {
     if (data?.user) {
         redirect("/");
     }
-
-    return (
+     return (
         <div className="relative h-screen w-screen overflow-hidden">
             <BackgroundImage/>
             <main className='relative z-10 flex min-h-screen flex-col items-center justify-center'>
