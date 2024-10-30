@@ -1,4 +1,10 @@
+"use client";
+
 import { Calendar, ChevronUp, Home, Inbox, Search, Settings, User2 } from "lucide-react"
+
+import { signout } from "@/actions/auth/actions";
+
+
 
 import {
   Sidebar,
@@ -50,7 +56,7 @@ const items = [
 
 export function AppSidebar() {
   return (
-    <Sidebar>
+    <Sidebar variant="floating">
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupLabel>Application</SidebarGroupLabel>
@@ -76,7 +82,7 @@ export function AppSidebar() {
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <SidebarMenuButton>
-                    <User2 /> Username
+                    <User2 />Username
                     <ChevronUp className="ml-auto" />
                   </SidebarMenuButton>
                 </DropdownMenuTrigger>
@@ -85,13 +91,14 @@ export function AppSidebar() {
                   className="w-[--radix-popper-anchor-width]"
                 >
                   <DropdownMenuItem>
-                    <span>Account</span>
+                    <button>Account</button>
                   </DropdownMenuItem>
+                  
                   <DropdownMenuItem>
-                    <span>Billing</span>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem>
-                    <span>Sign out</span>
+                    <button
+                    onClick={async() =>{
+                      await signout();
+                    }}>Sign Out</button>
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
