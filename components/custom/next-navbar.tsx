@@ -1,9 +1,12 @@
 import { Navbar, NavbarBrand, NavbarContent, NavbarItem } from "@nextui-org/navbar";
 import { Link, Button } from "@nextui-org/react";
 import { CompanyLogo } from "../logo/companyLogo";
-import { signout } from "@/actions/auth/actions";
+import { redirectSignIn, signout } from "@/actions/auth/actions";
+import { createClient } from "@/utils/supabase/server";
 
-export default function NextNavBar() {
+export default async function NextNavBar() {
+    const supabase = await createClient();
+    const {data : {user}} = await supabase.auth.getUser();
     return (
         <Navbar>
             <NavbarBrand>
@@ -29,19 +32,38 @@ export default function NextNavBar() {
             </NavbarContent>
             
             <NavbarContent justify="end">
-                <NavbarItem className="hidden lg:flex">
-                    <Link href="#">Hi Sourav</Link>
-                </NavbarItem>
-                <NavbarItem>
-                    <Button 
-                        as={Link} 
-                        color="primary" 
-                        onClick={signout} 
-                        variant="flat"
-                    >
-                        Sign Out
-                    </Button>
-                </NavbarItem>
+                {user ? 
+                    (<>
+                        <NavbarItem className="hidden lg:flex">
+                            <Link href="#">Hello, {user?.email}</Link>
+                        </NavbarItem>
+                        <NavbarItem>
+                            <Button 
+                                as={Link} 
+                                color="primary" 
+                                onClick={signout} 
+                                variant="bordered"
+                            >
+                                Sign Out
+                            </Button>
+                        </NavbarItem>
+                    </>) : 
+                    (
+                        <>
+                            <NavbarItem>
+                                <Button 
+                                    as={Link} 
+                                    color="primary" 
+                                    onClick={redirectSignIn} 
+                                    variant="bordered"
+                                >
+                                    Sign In
+                                </Button>
+                            </NavbarItem>
+                        </>
+                    )
+                }
+                
             </NavbarContent>
         </Navbar>
     );

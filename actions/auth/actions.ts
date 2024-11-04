@@ -53,3 +53,6 @@ export async function signout() {
 
     redirect("/signin");
 }
+export async function redirectSignIn() {
+    redirect("/signin")
+}

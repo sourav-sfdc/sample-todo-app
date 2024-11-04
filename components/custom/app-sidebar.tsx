@@ -1,5 +1,3 @@
-"use client";
-
 import { Calendar, ChevronUp, Home, Inbox, Search, Settings, User2 } from "lucide-react";
 import { signout } from "@/actions/auth/actions";
 
@@ -25,6 +23,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 import { Collapsible, CollapsibleTrigger, CollapsibleContent } from "@/components/ui/collapsible";
+import { createClient } from "@/utils/supabase/server";
 
 // Define the type for a menu item
 type MenuItem = {
@@ -71,7 +70,9 @@ const items: MenuItem[] = [
   },
 ];
 
-export function AppSidebar() {
+export default async function AppSidebar() {
+  const supabase = await createClient();
+  const {data : {user}} = await supabase.auth.getUser();
   return (
     <Sidebar variant="floating">
       <SidebarContent>
@@ -118,7 +119,7 @@ export function AppSidebar() {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <SidebarMenuButton>
-                  <User2 /> Username
+                  <User2/> {user?.email}
                   <ChevronUp className="ml-auto" />
                 </SidebarMenuButton>
               </DropdownMenuTrigger>
